@@ -33,9 +33,27 @@ def print_footer(students)
   puts "Overall, we have #{students.count} great students"
 end
 
+def select_first_letter(students)
+  puts "do you want to sort by letter?"
+  input=gets.chomp
+  if input == "yes"
+  sorted_students = []
+      puts "What letter?"
+      letter = gets.chomp
+      students.each { |x|
+        if x[:name][0] == letter
+        sorted_students << x
+        else
+        end
+        }
+    puts sorted_students
+  else
+  end
+end
 
 students = input_students
 student_count = students.count
 print_header
 print(students)
 print_footer(students)
+select_first_letter(students)
