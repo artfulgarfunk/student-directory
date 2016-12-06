@@ -51,9 +51,22 @@ def select_first_letter(students)
   end
 end
 
+def select_less_than(students)
+  less_twelve = []
+  students.each { |x|
+      if x[:name].length <= 11
+      less_twelve << x
+      else
+      end
+    }
+    puts "These are less than twelve...", less_twelve
+end
+
+
 students = input_students
 student_count = students.count
 print_header
 print(students)
 print_footer(students)
-select_first_letter(students)
+#select_first_letter(students)
+select_less_than(students)
