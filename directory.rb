@@ -1,20 +1,18 @@
-
 def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
-  # create an empty array
   students = []
-  # get the first names
-  name = gets.chomp
-  # while the name is not empty, repeat this code
+  puts "What's the name?"
+  name = STDIN.gets.chomp
   while !name.empty? do
-    # add the student hash to the array
-    students << {name: name, cohort: :november}
+    puts "What's the age of the student?"
+    age = STDIN.gets.chomp
+    puts "Where was the student born?"
+    birthplace = STDIN.gets.chomp
+    puts "What's their favourite hobby?"
+    hobby = STDIN.gets.chomp
+    students << {name: name,cohort: :november,age: age,birthplace: birthplace, hobby: hobby}
     puts "Now we have #{students.count} students"
-    # get another name from the user
     name = gets.chomp
   end
-  # return the array of students
   students
 end
 
@@ -25,7 +23,10 @@ end
 
 def print(students)
     students.each_with_index { |student, index|
-      puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+      puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort,
+      age: #{student[:age]},
+      birthplace: #{student[:birthplace]},
+      hobby: #{student[:hobby]})"
   }
 end
 
@@ -62,11 +63,10 @@ def select_less_than(students)
     puts "These are less than twelve...", less_twelve
 end
 
-
 students = input_students
 student_count = students.count
 print_header
 print(students)
 print_footer(students)
 #select_first_letter(students)
-select_less_than(students)
+#select_less_than(students)
