@@ -1,20 +1,29 @@
 def input_students
   students = []
+  #getting all default values together
+  defaults = {
+    name: "Average Joe/Jane",
+    cohort: "Sometime soon!",
+    age: "Between 0 and 100, probably",
+    birthplace: "Earth (probably)",
+    hobby: "TV I guess",
+  }
   puts "What's the name?".center(50,'--')
   name = STDIN.gets.chomp
   while !name.empty? do
     puts "What cohort is #{name} joining?".center(50,'--')
-    cohort = STDIN.gets.chomp
-      if cohort.empty?
-        cohort = "default - NOVEMBER"
-      else
-      end
+    cohort = STDIN.gets.chomp.to_sym # cohorts are symbols!
+      if cohort.empty? then cohort = defaults[:cohort] end
+        
     puts "What's the age of the student?".center(50,'--')
     age = STDIN.gets.chomp
+      if age.empty? then age = defaults[:age] end
     puts "Where was the student born?".center(50,'--')
     birthplace = STDIN.gets.chomp
+      if birthplace.empty? then birthplace = defaults[:birthplace] end
     puts "What's their favourite hobby?".center(50,'--')
     hobby = STDIN.gets.chomp
+      if hobby.empty? then hobby = defaults[:hobby] end
     students << {name: name,cohort: cohort,age: age,birthplace: birthplace, hobby: hobby}
     puts "Now we have #{students.count} students".center(50,'--')
     name = gets.chomp
