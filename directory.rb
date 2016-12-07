@@ -8,13 +8,14 @@ def input_students
     hobby: "TV I guess",
   }
 
-  months = ["january","february","march","april","may","june","july","august","september","october","november","december"]
+  months = [:january, :february, :march, :april, :may, :june, :july, :august, :september, :october, :november, :december]
 
   puts "What's the name?".center(50,'--')
   name = STDIN.gets.chomp
   while !name.empty? do
     puts "What cohort is #{name} joining?".center(50,'--')
     cohort = STDIN.gets.chomp # cohorts are symbols!
+    cohort = cohort.to_sym
       if cohort.empty? != true
         while months.include?(cohort) != true
         puts "You made an error, try again"
@@ -22,15 +23,19 @@ def input_students
         end
       else cohort = defaults[:cohort]
       end
+
     puts "What's the age of the student?".center(50,'--')
     age = STDIN.gets.chomp
       if age.empty? then age = defaults[:age] end
+
     puts "Where was the student born?".center(50,'--')
     birthplace = STDIN.gets.chomp
       if birthplace.empty? then birthplace = defaults[:birthplace] end
+
     puts "What's their favourite hobby?".center(50,'--')
     hobby = STDIN.gets.chomp
       if hobby.empty? then hobby = defaults[:hobby] end
+
     students << {name: name,cohort: cohort.to_sym,age: age,birthplace: birthplace, hobby: hobby}
     puts "Now we have #{students.count} students".center(50,'--')
     name = gets.chomp
@@ -52,6 +57,19 @@ def print(students)
   }
 end
 
+def print_by_cohort(students)
+  cohort_sort = []
+  puts "Which cohort?"
+  input_cohort = gets.chomp
+  input_cohort = input_cohort.to_sym
+  students.each { |student|
+    if student[:cohort] == input_cohort
+      cohort_sort << student
+    else
+    end
+  }
+  puts cohort_sort
+end
 
 def print_footer(students)
   puts "Overall, we have #{students.count} great students".center(50,'--')
@@ -90,6 +108,7 @@ students = input_students
 student_count = students.count
 print_header
 print(students)
+print_by_cohort(students)
 print_footer(students)
 #select_first_letter(students)
 #select_less_than(students)
