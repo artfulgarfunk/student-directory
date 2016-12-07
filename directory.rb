@@ -72,7 +72,13 @@ def print_by_cohort(students)
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students".center(50,'--')
+  if students.count >= 2
+    maybe_plural = "students"
+  else
+    maybe_plural = "student"
+  end
+  footer = "Overall we have #{students.count} great #{maybe_plural}".center(50,'--')
+  puts footer
 end
 
 def select_first_letter(students)
@@ -108,7 +114,7 @@ students = input_students
 student_count = students.count
 print_header
 print(students)
-print_by_cohort(students)
+#print_by_cohort(students)
 print_footer(students)
 #select_first_letter(students)
 #select_less_than(students)
