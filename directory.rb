@@ -3,13 +3,19 @@ def input_students
   puts "What's the name?".center(50,'--')
   name = STDIN.gets.chomp
   while !name.empty? do
+    puts "What cohort is #{name} joining?".center(50,'--')
+    cohort = STDIN.gets.chomp
+      if cohort.empty?
+        cohort = "default - NOVEMBER"
+      else
+      end
     puts "What's the age of the student?".center(50,'--')
     age = STDIN.gets.chomp
     puts "Where was the student born?".center(50,'--')
     birthplace = STDIN.gets.chomp
     puts "What's their favourite hobby?".center(50,'--')
     hobby = STDIN.gets.chomp
-    students << {name: name,cohort: :november,age: age,birthplace: birthplace, hobby: hobby}
+    students << {name: name,cohort: cohort,age: age,birthplace: birthplace, hobby: hobby}
     puts "Now we have #{students.count} students".center(50,'--')
     name = gets.chomp
   end
