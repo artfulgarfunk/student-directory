@@ -31,7 +31,7 @@ def input_students
     puts "What's their favourite hobby?".center(50,'--')
     hobby = STDIN.gets.chomp
       if hobby.empty? then hobby = defaults[:hobby] end
-    students << {name: name,cohort: cohort,age: age,birthplace: birthplace, hobby: hobby}
+    students << {name: name,cohort: cohort.to_sym,age: age,birthplace: birthplace, hobby: hobby}
     puts "Now we have #{students.count} students".center(50,'--')
     name = gets.chomp
   end
