@@ -1,6 +1,6 @@
 @students = []
 
-def load_students(filename = "students.csv") #this makes students.csv the default name! (not file...) if a filename isn't given
+def load_students(filename = STDIN.gets.chomp) #this makes students.csv the default name! (not file...) if a filename isn't given
   file = File.open(filename,"r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',') # setting the variables name and cohort equal to the two sides of a line split by ','
@@ -63,8 +63,8 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list to file"
+  puts "4. Load the list from file"
   puts "9. Exit"
 end
 
@@ -85,7 +85,9 @@ def process(selection)
     save_students
     puts "Students saved!"
   when "4"
+    puts "What is the name of the file?"
     load_students
+    print_students_list
     puts "These students are loaded!"
   when "9"
     exit
@@ -153,8 +155,6 @@ def try_load_students
     end
 end
 
-
-
 def print_footer
   if @students.count == 1
     maybe_plural = "student"
@@ -185,7 +185,9 @@ end
 
 def save_students
   # open the file for writing
-  file = File.open("students.csv","w")
+  puts "Enter file name..."
+  filename = STDIN.gets.chomp
+  file = File.open(filename,"w")
   # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
