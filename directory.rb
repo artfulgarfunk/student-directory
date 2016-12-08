@@ -40,7 +40,7 @@ def input_students
 
     @students << {name: name,cohort: cohort.to_sym,age: age,birthplace: birthplace, hobby: hobby}
     puts "Now we have #{@students.count} students".center(50,'--')
-    name = gets.gsub(/\n/,"")
+    name = STDIN.gets.gsub(/\n/,"")
   end
   @students
 end
@@ -79,7 +79,7 @@ end
 def interactive_menu
   loop do
   print_menu
-  process(gets.chomp)
+  process(STDIN.gets.chomp)
   end
 end
   # 4. repeat from step 1
@@ -101,7 +101,7 @@ end
 def print_by_cohort
   cohort_sort = []
   puts "Which cohort?"
-  input_cohort = gets.gsub(/\n/,"")
+  input_cohort = STDIN.gets.gsub(/\n/,"")
   input_cohort = input_cohort.to_sym
   @students.each { |student|
     if student[:cohort] == input_cohort
@@ -112,10 +112,22 @@ def print_by_cohort
   puts cohort_sort
 end
 
-def load_students
-  file = File.open("students.csv","r")
+def try_load_students
+  filename = ARGV.first #this takes the first argument from the command line
+  return if filename.nil? # this will exit the method while filename doesn't exist
+  if File.exists?(filename)
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else # if it does NOT exist
+    puts "Sorry, #{filename} doesn't exist."
+    exit #quits!
+  end
+end
+
+def load_students(filename = "students.csv") #this makes students.csv the default if a filename isn't given
+  file = File.open(filename,"r")
   file.readlines.each do |line|
-  name, cohort = line.chomp.split(',') # setting the variables name and cohort equal to the two sides of a line split by ','
+    name, cohort = line.chomp.split(',') # setting the variables name and cohort equal to the two sides of a line split by ','
     @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
@@ -133,11 +145,11 @@ end
 
 def select_first_letter
   puts "do you want to sort by letter?"..center(50,'--')
-  input=gets.gsub(/\n/,"")
+  input=STDIN.gets.gsub(/\n/,"")
   if input == "yes"
   sorted_students = []
       puts "What letter?"
-      letter = gets.gsub(/\n/,"")
+      letter = STDIN.gets.gsub(/\n/,"")
       @students.each { |x|
         if x[:name][0] == letter
         sorted_students << x
@@ -172,6 +184,7 @@ def select_less_than
     puts "These are less than twelve...", less_twelve
 end
 
+try_load_students
 interactive_menu
 print_header
 print
