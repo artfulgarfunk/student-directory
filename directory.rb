@@ -1,5 +1,19 @@
 @students = []
 
+def load_students(filename = "students.csv") #this makes students.csv the default if a filename isn't given
+  file = File.open(filename,"r")
+  file.readlines.each do |line|
+    name, cohort = line.chomp.split(',') # setting the variables name and cohort equal to the two sides of a line split by ','
+    #@students << {name: name, cohort: cohort.to_sym}
+    student_array_add({name: name, cohort: cohort.to_sym})
+  end
+  file.close
+end
+
+def student_array_add(details)
+  @students << (details)
+end
+
 def input_students
   #getting all default values together
   defaults = {
@@ -38,7 +52,8 @@ def input_students
     hobby = STDIN.gets.gsub(/\n/,"")
       if hobby.empty? then hobby = defaults[:hobby] end
 
-    @students << {name: name,cohort: cohort.to_sym,age: age,birthplace: birthplace, hobby: hobby}
+    #@students << {name: name,cohort: cohort.to_sym,age: age,birthplace: birthplace, hobby: hobby}
+    student_array_add({name: name, cohort: cohort.to_sym,age: age, birthplace: birthplace, hobby: hobby})
     puts "Now we have #{@students.count} students".center(50,'--')
     name = STDIN.gets.gsub(/\n/,"")
   end
@@ -124,14 +139,7 @@ def try_load_students
   end
 end
 
-def load_students(filename = "students.csv") #this makes students.csv the default if a filename isn't given
-  file = File.open(filename,"r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(',') # setting the variables name and cohort equal to the two sides of a line split by ','
-    @students << {name: name, cohort: cohort.to_sym}
-  end
-  file.close
-end
+
 
 def print_footer
   if @students.count >= 2
