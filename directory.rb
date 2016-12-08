@@ -11,35 +11,35 @@ def input_students
   months = [:january, :february, :march, :april, :may, :june, :july, :august, :september, :october, :november, :december]
 
   puts "What's the name?".center(50,'--')
-  name = STDIN.gets.chomp
+  name = STDIN.gets.gsub(/\n/,"")
   while !name.empty? do
     puts "What cohort is #{name} joining?".center(50,'--')
-    cohort = STDIN.gets.chomp # cohorts are symbols!
+    cohort = STDIN.gets.gsub(/\n/,"")# cohorts are symbols!
     cohort = cohort.to_sym
       if cohort.empty? != true
         while months.include?(cohort) != true
         puts "You made an error, try again"
-        cohort = STDIN.gets.chomp
+        cohort = STDIN.gets.gsub(/\n/,"")
         cohort = cohort.to_sym
         end
       else cohort = defaults[:cohort]
       end
 
     puts "What's the age of the student?".center(50,'--')
-    age = STDIN.gets.chomp
+    age = STDIN.gets.gsub(/\n/,"")
       if age.empty? then age = defaults[:age] end
 
     puts "Where was the student born?".center(50,'--')
-    birthplace = STDIN.gets.chomp
+    birthplace = STDIN.gets.gsub(/\n/,"")
       if birthplace.empty? then birthplace = defaults[:birthplace] end
 
     puts "What's their favourite hobby?".center(50,'--')
-    hobby = STDIN.gets.chomp
+    hobby = STDIN.gets.gsub(/\n/,"")
       if hobby.empty? then hobby = defaults[:hobby] end
 
     students << {name: name,cohort: cohort.to_sym,age: age,birthplace: birthplace, hobby: hobby}
     puts "Now we have #{students.count} students".center(50,'--')
-    name = gets.chomp
+    name = gets.gsub(/\n/,"")
   end
   students
 end
@@ -61,7 +61,7 @@ end
 def print_by_cohort(students)
   cohort_sort = []
   puts "Which cohort?"
-  input_cohort = gets.chomp
+  input_cohort = gets.gsub(/\n/,"")
   input_cohort = input_cohort.to_sym
   students.each { |student|
     if student[:cohort] == input_cohort
@@ -84,11 +84,11 @@ end
 
 def select_first_letter(students)
   puts "do you want to sort by letter?"..center(50,'--')
-  input=gets.chomp
+  input=gets.gsub(/\n/,"")
   if input == "yes"
   sorted_students = []
       puts "What letter?"
-      letter = gets.chomp
+      letter = gets.gsub(/\n/,"")
       students.each { |x|
         if x[:name][0] == letter
         sorted_students << x
