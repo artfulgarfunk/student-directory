@@ -53,27 +53,27 @@ end
 
 def show_students
   print_header
-  print
+  print_students_list
   print_footer
+end
+
+def process(selection)
+  case selection
+  when "1"
+    input_students
+  when "2"
+    show_students
+  when "9"
+    exit
+  else
+    puts "try to type a number"
+  end
 end
 
 def interactive_menu
   loop do
-  # 1. print the menu and ask the user what to do
   print_menu
-  # 2. read the input and save it into a variable
-  selection = gets.chomp
-  # 3. do what the user has asked, computer
-  case selection
-    when "1"
-      @students = input_students
-    when "2"
-      show_students
-    when "9"
-      exit #get out of the program!
-    else
-      puts "That doesn't even make sense human"
-    end
+  process(gets.chomp)
   end
 end
   # 4. repeat from step 1
@@ -82,7 +82,7 @@ def print_header
   puts "The students of Villains Academy"
 end
 
-def print
+def print_students_list
     @students.each_with_index { |student, index|
       puts "#{index+1}. #{student[:name]}".center(50,'--')
       puts "Cohort: #{student[:cohort]}".center(50,'--')
