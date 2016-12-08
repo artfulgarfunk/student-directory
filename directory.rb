@@ -78,12 +78,15 @@ def process(selection)
   case selection
   when "1"
     input_students
+    puts "Successfully inputted a new student!"
   when "2"
     show_students
   when "3"
     save_students
+    puts "Students saved!"
   when "4"
     load_students
+    puts "These students are loaded!"
   when "9"
     exit
   else
