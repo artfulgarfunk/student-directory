@@ -1,6 +1,6 @@
 @students = []
 
-def load_students(filename = "students.csv") #this makes students.csv the default if a filename isn't given
+def load_students(filename = "students.csv") #this makes students.csv the default name! (not file...) if a filename isn't given
   file = File.open(filename,"r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',') # setting the variables name and cohort equal to the two sides of a line split by ','
@@ -129,14 +129,18 @@ end
 
 def try_load_students
   filename = ARGV.first #this takes the first argument from the command line
-  return if filename.nil? # this will exit the method while filename doesn't exist
-  if File.exists?(filename)
-    load_students(filename)
-    puts "Loaded #{@students.count} from #{filename}"
-  else # if it does NOT exist
-    puts "Sorry, #{filename} doesn't exist."
-    exit #quits!
+  if filename.nil? == true
+    load_students("students.csv") #now takes this file as default!
+    # this will exit the method while filename doesn't exist
+  elsif filename.nil? != true
+        if File.exists?(filename)
+         load_students(filename)
+         puts "Loaded #{@students.count} from #{filename}"
+        else File.exists?(filename) != true # if it does NOT exist
+          puts "Sorry, #{filename} doesn't exist."
+          exit #quits!
   end
+end
 end
 
 
