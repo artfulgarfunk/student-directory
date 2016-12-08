@@ -20,6 +20,7 @@ def input_students
         while months.include?(cohort) != true
         puts "You made an error, try again"
         cohort = STDIN.gets.chomp
+        cohort = cohort.to_sym
         end
       else cohort = defaults[:cohort]
       end
