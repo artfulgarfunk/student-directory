@@ -130,9 +130,15 @@ end
 def try_load_students
   filename = ARGV.first #this takes the first argument from the command line
   if filename.nil? == true
+    puts "Do you want to start a new list?"
+    user_input = STDIN.gets.chomp
+    if user_input.upcase == "Y"
+      return
+    else
     load_students("students.csv") #now takes this file as default!
     #to change, just insert filename again, instead of "students.csv" in the above line
     # this will exit the method while filename doesn't exist
+    end
   elsif filename.nil? != true
         if File.exists?(filename)
          load_students(filename)
@@ -140,17 +146,17 @@ def try_load_students
         else File.exists?(filename) != true # if it does NOT exist
           puts "Sorry, #{filename} doesn't exist."
           exit #quits!
-  end
-end
+        end
+    end
 end
 
 
 
 def print_footer
-  if @students.count >= 2
-    maybe_plural = "students"
-  else
+  if @students.count == 1
     maybe_plural = "student"
+  else
+    maybe_plural = "students"
   end
   footer = "Overall we have #{@students.count} great #{maybe_plural}".center(50,'--')
   puts footer
