@@ -1,13 +1,12 @@
 @students = []
 
-def load_students(filename = STDIN.gets.chomp) #this makes students.csv the default name! (not file...) if a filename isn't given
-  file = File.open(filename,"r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(',') # setting the variables name and cohort equal to the two sides of a line split by ','
-    #@students << {name: name, cohort: cohort.to_sym}
-    student_array_add({name: name, cohort: cohort.to_sym})
-  end
-  file.close
+def load_students(filename = STDIN.gets.chomp)
+    file = File.open(filename,mode = 'r') { |file|
+      file.readlines.each do |line|
+        name, cohort = line.chomp.split(',')
+        student_array_add({name: name, cohort: cohort.to_sym})
+      end
+      }
 end
 
 def student_array_add(details)
