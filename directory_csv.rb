@@ -17,13 +17,12 @@ def input_students
   #getting all default values together
   defaults = {
     cohort: "Sometime soon!",
-    age: "Between 0 and 100, judging by his face",
+    age: "Between 0 and 100",
     birthplace: "Earth (probably)",
     hobby: "TV I guess",
   }
 
   months = [:january, :february, :march, :april, :may, :june, :july, :august, :september, :october, :november, :december]
-
   puts "What's the name?".center(50,'--')
   name = STDIN.gets.gsub(/\n/,"")
   while !name.empty? do
@@ -51,7 +50,6 @@ def input_students
     hobby = STDIN.gets.gsub(/\n/,"")
       if hobby.empty? then hobby = defaults[:hobby] end
 
-    #@students << {name: name,cohort: cohort.to_sym,age: age,birthplace: birthplace, hobby: hobby}
     student_array_add({name: name, cohort: cohort.to_sym,age: age, birthplace: birthplace, hobby: hobby})
     puts "Now we have #{@students.count} students".center(50,'--')
     name = STDIN.gets.gsub(/\n/,"")
@@ -64,6 +62,9 @@ def print_menu
   puts "2. Show the students"
   puts "3. Save the list to file"
   puts "4. Load the list from file"
+  puts "5. View by cohort"
+  puts "6. View by name length"
+  puts "7. View by name"
   puts "9. Exit"
 end
 
@@ -88,10 +89,16 @@ def process(selection)
     load_students
     print_students_list
     puts "These students are loaded!"
+  when "5"
+    print_by_cohort
+  when "6"
+    select_less_than
+  when "7"
+    select_first_letter
   when "9"
     exit
   else
-    puts "try to type a number"
+    puts "Try to type a number"
   end
 end
 
@@ -111,7 +118,6 @@ def interactive_menu
   process(STDIN.gets.chomp)
   end
 end
-  # 4. repeat from step 1
 
 def print_header
   puts "The students of Villains Academy"
@@ -193,14 +199,16 @@ def select_first_letter
 end
 
 def select_less_than
-  less_twelve = []
+  puts "What is the name's max length?"
+  number = STDIN.gets.chomp.to_i
+  less_than = []
   @students.each { |x|
-      if x[:name].length <= 11
-      less_twelve << x
+      if x[:name].length <= number
+      less_than << x
       else
       end
     }
-    puts "These are less than twelve...", less_twelve
+    puts "These are less than #{number}", less_than
 end
 
 try_load_students
